@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA1710: Os identificadores devem ter o sufixo correto
+dotnet_diagnostic.CA1710.severity = warning

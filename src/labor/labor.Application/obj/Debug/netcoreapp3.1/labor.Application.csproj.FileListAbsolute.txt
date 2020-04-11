@@ -1,0 +1,11 @@
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\obj\Debug\netcoreapp3.1\labor.Application.csprojAssemblyReference.cache
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\obj\Debug\netcoreapp3.1\labor.Application.AssemblyInfoInputs.cache
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\obj\Debug\netcoreapp3.1\labor.Application.AssemblyInfo.cs
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\bin\Debug\netcoreapp3.1\labor.Application.deps.json
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\bin\Debug\netcoreapp3.1\labor.Application.dll
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\bin\Debug\netcoreapp3.1\labor.Application.pdb
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\bin\Debug\netcoreapp3.1\labor.Domain.dll
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\bin\Debug\netcoreapp3.1\labor.Domain.pdb
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\obj\Debug\netcoreapp3.1\labor.Application.csproj.CopyComplete
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\obj\Debug\netcoreapp3.1\labor.Application.dll
+C:\Users\gemir\source\repos\labor\src\labor\labor.Application\obj\Debug\netcoreapp3.1\labor.Application.pdb
