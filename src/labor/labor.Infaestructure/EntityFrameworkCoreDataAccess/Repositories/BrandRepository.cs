@@ -1,36 +1,59 @@
 ﻿using labor.Application.Repositories;
 using labor.Domain.BrandsE;
+using labor.Infaestructure.EntityFrameworkCoreDataAccess.Context;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
 {
 
     public class BrandRepository : IBrandsReadOnlyRepository, IBrandsWriteOnlyRepository
     {
-        public Task<int> Add(Brand models)
+
+        private readonly DBContext context;
+
+        BrandRepository(DBContext _context)
         {
-            throw new System.NotImplementedException();
+            this.context = _context;
+        }
+        
+        public async Task<int> Add(Brand models)
+        {
+            var result = await  context.AddAsync(models);
+            await context.SaveChangesAsync().ConfigureAwait(true);
+            return result.Entity.Id;
         }
 
-        public Task<int> Delete(int IdBrand)
+        public async Task<int> Delete(int IdBrand)
         {
-            throw new System.NotImplementedException();
+            string query_string_delete = @"DELETE FROM Brand WHERE Id = @Id";
+                    
+            var id = new SqlParameter("@Id", IdBrand);
+
+            int affectedRows = await context.Database.ExecuteSqlRawAsync(
+                query_string_delete, id).ConfigureAwait(true);
+
+            return affectedRows;
         }
 
-        public Task<Brand> Get(int id)
+        public async Task<Brand> Get(int id)
         {
-            throw new System.NotImplementedException();
+            return  await context.Brands.FindAsync(id);
         }
 
-        public Task<IReadOnlyList<Brand>> GetAll()
+        public async Task<IReadOnlyList<Brand>> GetAll()
         {
-            throw new System.NotImplementedException();
+            return await context.Brands.ToListAsync().ConfigureAwait(true);
+            
         }
 
-        public Task<int> Update(Brand models)
+        public async  Task<int> Update(Brand models)
         {
-            throw new System.NotImplementedException();
+            var result = await context.AddAsync(models);
+                         await context.SaveChangesAsync().ConfigureAwait(true);
+;            return result.Entity.Id;
         }
     }
 }

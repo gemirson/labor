@@ -176,6 +176,9 @@
             "projectReferences": {
               "C:\\Users\\gemir\\source\\repos\\labor\\src\\labor\\labor.Application\\labor.Application.csproj": {
                 "projectPath": "C:\\Users\\gemir\\source\\repos\\labor\\src\\labor\\labor.Application\\labor.Application.csproj"
+              },
+              "C:\\Users\\gemir\\source\\repos\\labor\\src\\labor\\labor.Domain\\labor.Domain.csproj": {
+                "projectPath": "C:\\Users\\gemir\\source\\repos\\labor\\src\\labor\\labor.Domain\\labor.Domain.csproj"
               }
             }
           }
@@ -188,6 +191,36 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.CodeAnalysis.Common": {
+              "target": "Package",
+              "version": "[3.5.0, )"
+            },
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.CodeQuality.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
