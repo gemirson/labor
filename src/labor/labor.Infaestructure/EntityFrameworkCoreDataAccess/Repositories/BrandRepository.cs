@@ -5,11 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System;
+using labor.Infaestructure.Specifications;
+using System.Linq;
+using labor.Domain.Specifications;
 
 namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
 {
 
-    public class BrandRepository : IBrandsReadOnlyRepository, IBrandsWriteOnlyRepository
+    public class BrandRepository : IBrandsReadOnlyRepository, IBrandsWriteOnlyRepository, IDisposable
     {
 
         private readonly DBContext context;
@@ -51,9 +55,23 @@ namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
 
         public async  Task<int> Update(Brand models)
         {
-            var result = await context.AddAsync(models);
-                         await context.SaveChangesAsync().ConfigureAwait(true);
-;            return result.Entity.Id;
+            context.Entry(models).State = EntityState.Modified;
+            await context.SaveChangesAsync().ConfigureAwait(true);
+            
+           return context.Entry(models).Entity.Id;
         }
+
+        private IQueryable<Brand> ApplySpecification(ISpecification<Brand> spec)
+        {
+            return SpecificationEvaluator<Brand>.GetQuery(context.Set<Brand>().AsQueryable(), spec);
+        }
+
+        public  void Dispose()
+        {
+            context.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+       
     }
 }

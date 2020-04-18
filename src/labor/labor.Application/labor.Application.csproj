@@ -12,4 +12,8 @@
     <ProjectReference Include="..\labor.Domain\labor.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helper\" />
+  </ItemGroup>
+
 </Project>

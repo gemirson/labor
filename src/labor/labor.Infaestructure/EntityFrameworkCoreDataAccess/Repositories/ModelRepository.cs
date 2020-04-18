@@ -1,17 +1,18 @@
 ﻿using labor.Application.Repositories;
-using labor.Application.Specifications;
 using labor.Domain.ModelsE;
+using labor.Domain.Specifications;
 using labor.Infaestructure.EntityFrameworkCoreDataAccess.Context;
+using labor.Infaestructure.Specifications;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
 {
-    public class ModelRepository : IModelsReadOnlyRepository, IModelWriteOnlyRepository
+    public class ModelRepository : IModelsReadOnlyRepository, IModelWriteOnlyRepository, IDisposable
     {
 
         private readonly DBContext context;
@@ -22,41 +23,57 @@ namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
         }
         public async Task<int> Add(Model models)
         {
+           
             var result = await context.AddAsync(models);
             await context.SaveChangesAsync().ConfigureAwait(true);
             return result.Entity.Id;
         }
 
-        public async Task Delete(Model models)
+        public async Task<int> Delete(Model models)
         {
+
             string query_string_delete =
                       @"DELETE FROM Model WHERE Id = @Id";
                       var id = new SqlParameter("@Id", models.Id);
 
             int affectedRows = await context.Database.ExecuteSqlRawAsync(
                query_string_delete, id).ConfigureAwait(true);
+
+            return affectedRows;
         }
 
-        public Task<Model> Get(int id)
+        public async Task<Model> Get(int id)
         {
-            throw new NotImplementedException();
+            return await context.Models.FindAsync(id);
         }
 
-        public Task<IReadOnlyList<Model>> GetAll()
+        public async Task<IReadOnlyList<Model>> GetAll()
         {
-            throw new NotImplementedException();
+            return await context.Models.ToListAsync().ConfigureAwait(true);
         }
 
-        public Task<IReadOnlyList<Model>> GetBy(ISpecification<Model> specification)
+        public async  Task<IReadOnlyList<Model>> GetByBrand(ISpecification<Model> specification)
         {
-            throw new NotImplementedException();
+            return await ApplySpecification(specification).ToListAsync().ConfigureAwait(true);
         }
 
-        public async Task Update(Model models)
+        public async Task<int> Update(Model models)
         {
-            var result = await context.AddAsync(models);
+            context.Entry(models).State = EntityState.Modified;
             await context.SaveChangesAsync().ConfigureAwait(true);
-            
+            return context.Entry(models).Entity.Id;
+        }
+
+
+        private IQueryable<Model> ApplySpecification(ISpecification<Model> spec)
+        {
+            return SpecificationEvaluator<Model>.GetQuery(context.Set<Model>().AsQueryable(), spec);
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

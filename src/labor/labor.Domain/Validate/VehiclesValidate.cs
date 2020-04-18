@@ -33,11 +33,7 @@ namespace labor.Domain.Validate
             RuleFor(x => x.ModelsId)
                .Equal(0)
                .WithMessage("Campo nome aceita no maximo 40 caracteres");
-
-            RuleFor(x => x.YearModel)
-               .Equal(0)
-               .WithMessage("Campo nome aceita no maximo 40 caracteres");
-
+                        
             RuleFor(x => x.Fuel)
                .Equal(0)
                .WithMessage("Campo nome aceita no maximo 40 caracteres");

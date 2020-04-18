@@ -6,7 +6,7 @@ namespace labor.Application.Repositories
     public interface IModelWriteOnlyRepository
     {
         Task<int> Add(Model  models);
-        Task Update(Model models);
-        Task Delete(Model  models);
+        Task<int> Update(Model models);
+        Task<int> Delete(Model  models);
     }
 }

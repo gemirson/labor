@@ -12,10 +12,10 @@ namespace labor.Domain.VehiclesE
         public int     BrandId { get; private set; }
         public int     ModelsId  { get; private set; }
         public decimal  Value { get; private set; }
-        public int      YearModel { get; set; }
+        public DateTime YearModel { get; set; }
         public int      Fuel { get; set; }
 
-        public Vehicle(string name,int Id, int brandId, int modelsId, decimal value, int yearModel,int fuel)
+        public Vehicle(string name,int Id, int brandId, int modelsId, decimal value, DateTime yearModel,int fuel)
         {
             Name = name ;
             this.Id = Id;

@@ -1,14 +1,11 @@
 ﻿using labor.Application.Command.Brands.Result;
-using labor.Domain.BrandsE;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using labor.Application.ViewModel;
 using System.Threading.Tasks;
 
 namespace labor.Application.Command.Brands.Changess
 {
     interface IBrandChange
     {
-       Task<BrandResult> Handler(Brand brand);
+       Task<BrandResult> Handler(BrandViewModel brand);
     }
 }

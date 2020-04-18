@@ -1,43 +1,78 @@
 ﻿using labor.Application.Repositories;
-using labor.Application.Specifications;
+using labor.Domain.Specifications;
 using labor.Domain.VehiclesE;
+using labor.Infaestructure.EntityFrameworkCoreDataAccess.Context;
+using labor.Infaestructure.Specifications;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
 {
-    public class VehicleRepository : IVehiclesWriteOnlyRepository, IVehiclesReadOnlyRepository
+    public class VehicleRepository : IVehiclesWriteOnlyRepository, IVehiclesReadOnlyRepository, IDisposable
     {
-        public Task<int> Add(Vehicle vehicles)
+        private readonly DBContext context;
+
+        public VehicleRepository(DBContext _context)
         {
-            throw new NotImplementedException();
+            this.context = _context;
+        }
+        public async Task<int> Add(Vehicle vehicles)
+        {
+            var result = await context.AddAsync(vehicles);
+            await context.SaveChangesAsync().ConfigureAwait(true);
+            return result.Entity.Id;
+        }
+    
+
+        public async  Task<int> Delete(Vehicle vehicles)
+        {
+            string query_string_delete =
+                    @"DELETE FROM Vehicle WHERE Id = @Id";
+
+            var id = new SqlParameter("@Id", vehicles.Id);
+
+            int affectedRows = await context.Database.ExecuteSqlRawAsync(
+               query_string_delete, id).ConfigureAwait(true);
+
+            return affectedRows;
         }
 
-        public Task Delete(Vehicle vehicles)
+        public async Task<Vehicle> Get(int id)
         {
-            throw new NotImplementedException();
+            return await context.Vehicles.FindAsync(id);
         }
 
-        public Task<Vehicle> Get(int id)
+        public async Task<IReadOnlyList<Vehicle>> GetAll()
         {
-            throw new NotImplementedException();
+            return await context.Vehicles.ToListAsync().ConfigureAwait(true);
         }
 
-        public Task<IReadOnlyList<Vehicle>> GetAll()
+        public  async Task<IReadOnlyList<Vehicle>> GetByModel(ISpecification<Vehicle> specification)
         {
-            throw new NotImplementedException();
+            return await ApplySpecification(specification).ToListAsync().ConfigureAwait(true);
         }
 
-        public Task<IReadOnlyList<Vehicle>> GetBy(ISpecification<Vehicle> specification)
+        public async Task<int> Update(Vehicle vehicles)
         {
-            throw new NotImplementedException();
+           
+            context.Entry(vehicles).State = EntityState.Modified;
+            await context.SaveChangesAsync().ConfigureAwait(true);
+            return context.Entry(vehicles).Entity.Id;
         }
 
-        public Task Update(Vehicle vehicles)
+        private IQueryable<Vehicle> ApplySpecification(ISpecification<Vehicle> spec)
         {
-            throw new NotImplementedException();
+            return SpecificationEvaluator<Vehicle>.GetQuery(context.Set<Vehicle>().AsQueryable(), spec);
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }
