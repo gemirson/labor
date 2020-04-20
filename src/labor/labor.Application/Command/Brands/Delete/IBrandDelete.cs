@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace labor.Application.Command.Brands.Delete
 {
-    interface IBrandDelete
+    public interface IBrandDelete
     {
         Task<int> Handler(int IdBrand);
     }

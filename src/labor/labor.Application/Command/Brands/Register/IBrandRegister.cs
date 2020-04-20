@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace labor.Application.Command.Brands.Register
 {
-    interface IBrandRegister
+    public interface IBrandRegister
     {
         Task<BrandResult> Handler(BrandViewModel brandViewModel, NotificationContext notificationContext);
     }

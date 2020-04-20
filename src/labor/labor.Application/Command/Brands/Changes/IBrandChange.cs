@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace labor.Application.Command.Brands.Changess
 {
-    interface IBrandChange
+    public interface IBrandChange
     {
        Task<BrandResult> Handler(BrandViewModel brandViewModel, NotificationContext notificationContext);
     }
