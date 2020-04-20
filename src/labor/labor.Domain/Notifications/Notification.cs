@@ -1,25 +1,20 @@
-﻿using labor.Domain.Interface.Notification;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 
 namespace labor.Domain.Notifications
 {
-    public abstract class Notification : INotification
+    public class Notification 
     {
-        public IList<object> List { get; } = new List<object>();
-        public bool HasNotifications => List.Any();
+        public Guid DomainNotificationId { get; private set; }
+        public string Key { get; private set; }
+        public string Value { get; private set; }
+       
 
-        public bool Includes(Description error)
+        public Notification(Guid domainNotificationId, string key, string value)
         {
-            return List.Contains(error);
+            DomainNotificationId = domainNotificationId;
+            Key = key;
+            Value = value;
+           
         }
-
-        public void Add(Description description)
-        {
-            List.Add(description);
-        }
-
-     
     }
 }

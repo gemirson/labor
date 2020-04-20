@@ -8,3 +8,6 @@ C:\Users\gemir\source\repos\labor\src\labor\labor.Infaestructure\obj\Debug\netco
 C:\Users\gemir\source\repos\labor\src\labor\labor.Infaestructure\obj\Debug\netcoreapp3.1\labor.Infaestructure.AssemblyInfoInputs.cache
 C:\Users\gemir\source\repos\labor\src\labor\labor.Infaestructure\obj\Debug\netcoreapp3.1\labor.Infaestructure.AssemblyInfo.cs
 C:\Users\gemir\source\repos\labor\src\labor\labor.Infaestructure\obj\Debug\netcoreapp3.1\labor.Infaestructure.csproj.CopyComplete
+C:\Users\gemir\source\repos\labor\src\labor\labor.Infaestructure\bin\Debug\netcoreapp3.1\labor.Infaestructure.pdb
+C:\Users\gemir\source\repos\labor\src\labor\labor.Infaestructure\obj\Debug\netcoreapp3.1\labor.Infaestructure.dll
+C:\Users\gemir\source\repos\labor\src\labor\labor.Infaestructure\obj\Debug\netcoreapp3.1\labor.Infaestructure.pdb

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using System;
 
 namespace labor.Domain.BaseEntity
 {
     public abstract class Entity
     {
         public int Id { get; protected set; }
+        public ValidationResult ValidationResult { get; private set; }
 
         public override bool Equals(object Entity_object)
         {
@@ -40,7 +43,10 @@ namespace labor.Domain.BaseEntity
             return (GetType().ToString() + Id).GetHashCode();
         }
 
-        public abstract bool IsValidate();
+
+
+        public abstract bool Validate<TModel>(TModel model, AbstractValidator<TModel> validator);
+       
 
     }
 }

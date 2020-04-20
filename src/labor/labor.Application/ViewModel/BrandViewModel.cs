@@ -6,11 +6,6 @@ namespace labor.Application.ViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ValidationResult ValidationResult { get; set; }
-
-        public BrandViewModel()
-        {
-            ValidationResult = new ValidationResult();
-        }
+        
     }
 }

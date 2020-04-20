@@ -11,11 +11,6 @@ namespace labor.Application.ViewModel
         public decimal Value { get; private set; }
         public int     YearModel { get; set; }
         public int     Fuel { get; set; }
-        public ValidationResult ValidationResult { get; set; }
-
-        public VehicleViewModel()
-        {
-            ValidationResult = new ValidationResult();
-        }
+      
     }
 }

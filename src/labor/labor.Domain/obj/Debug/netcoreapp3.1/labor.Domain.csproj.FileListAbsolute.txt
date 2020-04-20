@@ -5,4 +5,3 @@ C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\bin\Debug\netcoreapp3.1
 C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\bin\Debug\netcoreapp3.1\labor.Domain.pdb
 C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.dll
 C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.pdb
-C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.csprojAssemblyReference.cache

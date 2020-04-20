@@ -1,4 +1,5 @@
-﻿using labor.Domain.BaseEntity;
+﻿using FluentValidation;
+using labor.Domain.BaseEntity;
 using labor.Domain.Validate;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,10 @@ namespace labor.Domain.VehiclesE
             Value = value;
             YearModel = yearModel;
             Fuel = fuel;
+            Validate(this, new VehiclesValidate());
         }
-
-        public override bool IsValidate()
+                
+        public override bool Validate<TModel>(TModel model, AbstractValidator<TModel> validator)
         {
             var Result = new VehiclesValidate().Validate(this);
             return Result.IsValid;
