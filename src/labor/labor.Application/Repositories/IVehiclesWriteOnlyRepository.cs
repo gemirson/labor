@@ -8,7 +8,7 @@ namespace labor.Application.Repositories
     {
         Task<int> Add(Vehicle vehicles);
         Task<int> Update(Vehicle vehicles);
-        Task<int> Delete(Vehicle vehicles);
+        Task<int> Delete(int IdVehicle);
     }
 
 }

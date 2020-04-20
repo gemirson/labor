@@ -1,13 +1,13 @@
-﻿using labor.Application.Command.Brands.Result;
-using System;
+﻿using labor.Domain.ModelsE;
+using labor.Domain.Specifications;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace labor.Application.Queries.Models
 {
-    interface IModelQueries
+    public interface IModelQueries
     {
-        Task<BrandResult> Get(int Id);
+        Task<Model> Get(int Id);
+        Task<IReadOnlyList<Model>> GetModelByBrand(ISpecification<Model> specification);
     }
 }

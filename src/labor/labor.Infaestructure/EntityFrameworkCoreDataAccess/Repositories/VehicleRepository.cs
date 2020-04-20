@@ -28,12 +28,12 @@ namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
         }
     
 
-        public async  Task<int> Delete(Vehicle vehicles)
+        public async  Task<int> Delete(int IdVehicle)
         {
             string query_string_delete =
                     @"DELETE FROM Vehicle WHERE Id = @Id";
 
-            var id = new SqlParameter("@Id", vehicles.Id);
+            var id = new SqlParameter("@Id", IdVehicle);
 
             int affectedRows = await context.Database.ExecuteSqlRawAsync(
                query_string_delete, id).ConfigureAwait(true);

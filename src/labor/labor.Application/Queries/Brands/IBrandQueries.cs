@@ -1,10 +1,13 @@
 ﻿using labor.Application.Command.Brands.Result;
+using labor.Domain.BrandsE;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace labor.Application.Queries.Brands
 {
-    interface IBrandQueries
+    public interface IBrandQueries
     {
-        Task<BrandResult> Get(int Id);
+        Task<Brand> Get(int Id);
+        Task<IReadOnlyList<Brand>> GetAll();
     }
 }

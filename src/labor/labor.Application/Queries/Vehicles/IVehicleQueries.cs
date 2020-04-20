@@ -1,13 +1,13 @@
-﻿using labor.Application.Command.Brands.Result;
-using System;
+﻿using labor.Domain.Specifications;
+using labor.Domain.VehiclesE;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace labor.Application.Queries.Vehicles
 {
-    interface IVehicleQueries
+    public  interface IVehicleQueries
     {
-        Task<BrandResult> Get(int Id);
+        Task<Vehicle> Get(int Id);
+        Task<IReadOnlyList<Vehicle>> GetVehicleByModel(ISpecification<Vehicle> specification);
     }
 }

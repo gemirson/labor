@@ -29,12 +29,12 @@ namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
             return result.Entity.Id;
         }
 
-        public async Task<int> Delete(Model models)
+        public async Task<int> Delete(int IdModel)
         {
 
             string query_string_delete =
                       @"DELETE FROM Model WHERE Id = @Id";
-                      var id = new SqlParameter("@Id", models.Id);
+                      var id = new SqlParameter("@Id", IdModel);
 
             int affectedRows = await context.Database.ExecuteSqlRawAsync(
                query_string_delete, id).ConfigureAwait(true);
@@ -75,5 +75,7 @@ namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Repositories
             context.Dispose();
             GC.SuppressFinalize(this);
         }
+
+      
     }
 }

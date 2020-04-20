@@ -7,6 +7,6 @@ namespace labor.Application.Repositories
     {
         Task<int> Add(Model  models);
         Task<int> Update(Model models);
-        Task<int> Delete(Model  models);
+        Task<int> Delete(int IdModel);
     }
 }
