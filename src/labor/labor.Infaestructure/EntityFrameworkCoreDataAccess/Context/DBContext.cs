@@ -1,4 +1,5 @@
-﻿using labor.Domain.BaseEntity;
+﻿using FluentValidation.Results;
+using labor.Domain.BaseEntity;
 using labor.Domain.BrandsE;
 using labor.Domain.ModelsE;
 using labor.Domain.VehiclesE;
@@ -24,49 +25,52 @@ namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Brand>(BrandConfig);
+           modelBuilder.Entity<Brand>(BrandConfig).Ignore<ValidationResult>(); ;
 
 
-            modelBuilder.Entity<Model>(ModelConfig);
+           modelBuilder.Entity<Model>(ModelConfig).Ignore<ValidationResult>(); ;
 
-
-            modelBuilder.Entity<Vehicle>(VehicleConfig);
+    
+           modelBuilder.Entity<Vehicle>(VehicleConfig).Ignore<ValidationResult>();
 
             modelBuilder.Ignore<Entity>();
+
+            modelBuilder.Ignore<ValidationFailure>();
 
         }
 
         private void BrandConfig(EntityTypeBuilder<Brand> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(60);
+            
+    
   
         }
 
         private void ModelConfig(EntityTypeBuilder<Model> builder)
         {
-            builder.HasKey(x => x.Id);
+            
 
             builder.Property(x => x.Name)
                 .IsRequired()
                 .HasMaxLength(60);
+
             builder.HasOne<Brand>()
                    .WithMany()
-                   .HasForeignKey(p => p.BrandId);
+                   .HasForeignKey(p => p.BrandId).HasPrincipalKey(x => x.Id);
+                   
 
         }
 
         private void VehicleConfig(EntityTypeBuilder<Vehicle> builder) 
         {
+           
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(60);
+                   .IsRequired()
+                   .HasMaxLength(60);
 
             builder.HasOne<Brand>()
                    .WithMany()
@@ -80,8 +84,8 @@ namespace labor.Infaestructure.EntityFrameworkCoreDataAccess.Context
                    .IsRequired();
 
             builder.Property(x => x.YearModel)
-                .IsRequired()
-                .HasMaxLength(10);
+                   .IsRequired()
+                   .HasMaxLength(10);
 
 
         }

@@ -1,8 +1,8 @@
-C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.AssemblyInfoInputs.cache
-C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.AssemblyInfo.cs
 C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\bin\Debug\netcoreapp3.1\labor.Domain.deps.json
 C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\bin\Debug\netcoreapp3.1\labor.Domain.dll
 C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\bin\Debug\netcoreapp3.1\labor.Domain.pdb
+C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.csprojAssemblyReference.cache
+C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.AssemblyInfoInputs.cache
+C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.AssemblyInfo.cs
 C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.dll
 C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.pdb
-C:\Users\gemir\source\repos\labor\src\labor\labor.Domain\obj\Debug\netcoreapp3.1\labor.Domain.csprojAssemblyReference.cache

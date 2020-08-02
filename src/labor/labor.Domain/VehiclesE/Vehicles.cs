@@ -9,9 +9,9 @@ namespace labor.Domain.VehiclesE
 {
     public class Vehicle : Entity
     {
-        public string   Name  { get; private set; }
-        public int     BrandId { get; private set; }
-        public int     ModelsId  { get; private set; }
+        public string    Name  { get; private set; }
+        public int       BrandId { get; private set; }
+        public int       ModelsId  { get; private set; }
         public decimal  Value { get; private set; }
         public DateTime YearModel { get; set; }
         public int      Fuel { get; set; }
@@ -27,7 +27,11 @@ namespace labor.Domain.VehiclesE
             Fuel = fuel;
             Validate(this, new VehiclesValidate());
         }
-                
+
+        public Vehicle()
+        {
+        }
+
         public override bool Validate<TModel>(TModel model, AbstractValidator<TModel> validator)
         {
             var Result = new VehiclesValidate().Validate(this);
