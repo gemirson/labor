@@ -1,15 +1,18 @@
 ﻿using AutoMapper;
 using labor.Application.Command.Models.Result;
+using labor.Application.Helper;
 using labor.Application.Repositories;
 using labor.Application.ViewModel;
 using labor.Domain.ModelsE;
 using labor.Domain.Notifications;
+using MediatR;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace labor.Application.Command.Models.Register
 {
-    public class ModelRegisterCommand : IModelRegister
+    public class ModelRegisterCommand : IRequestHandler<ModelRegisterViewModel, ResultE>
     {
 
         private readonly IMapper _mapper;
@@ -23,20 +26,22 @@ namespace labor.Application.Command.Models.Register
             this.modelWriteOnlyRepository = modelWriteOnlyRepository;
         }
 
-        public async Task<ModelResult> Handler(ModelViewModel modelViewModel, NotificationContext notificationContext)
+        public async Task<ResultE> Handle(ModelRegisterViewModel request, CancellationToken cancellationToken)
         {
-            var model = _mapper.Map<ModelViewModel, Model>(modelViewModel);
+            var model = _mapper.Map<ModelRegisterViewModel, Model>(request);
 
             if (model.ValidationResult.IsValid)
             {
                 _notificationContext.AddNotifications(model.ValidationResult);
-                return new ModelResult(-1, model.Name, "NOK");
+                return new ResultE(new Guid(), model.Name, "NOT CREATED");
 
             }
 
-            var IdResult = await modelWriteOnlyRepository.Add(new Model(model.Id, model.Name,model.BrandId));
+            var IdResult = await modelWriteOnlyRepository.Add(new Model(model.Id, model.Name, model.BrandId));
 
-            return new ModelResult(IdResult, model.Name, IdResult != -1 ? "OK" : "NOK");
+            return new ResultE(new Guid(), model.Name, IdResult != -1 ? "CREATED WITH SUCESS" : "NOT CREATED");
         }
+
+      
     }
 }
