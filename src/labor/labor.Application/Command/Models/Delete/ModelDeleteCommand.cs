@@ -1,12 +1,14 @@
-﻿using labor.Application.Repositories;
+﻿using labor.Application.Helper;
+using labor.Application.Repositories;
+using labor.Application.ViewModel;
+using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace labor.Application.Command.Models.Delete
 {
-    public class ModelDeleteCommand : IModelDelete
+    public class ModelDeleteCommand : IRequestHandler<ModelDeleteViewModel, ResultE>
     {
         private readonly IModelWriteOnlyRepository modelWriteOnlyRepository;
 
@@ -15,10 +17,13 @@ namespace labor.Application.Command.Models.Delete
             this.modelWriteOnlyRepository = modelWriteOnlyRepository;
         }
 
-        public async  Task<int> Handler(int IdModel)
+        public async Task<ResultE> Handle(ModelDeleteViewModel request, CancellationToken cancellationToken)
         {
-            var IdResult = await modelWriteOnlyRepository.Delete(IdModel);
-            return IdResult;
+            var IdResult = await modelWriteOnlyRepository.Delete(request.Id);
+            return new ResultE(new Guid(),request.Id.ToString(),IdResult !=-1 ? "MODEL DELETED WITH SUCESS":"MODEL NOT DELETED");
+        }
+
+         
         }
     }
 }
