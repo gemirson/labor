@@ -1,43 +1,44 @@
 ﻿using AutoMapper;
-using labor.Application.Command.Models.Result;
+using labor.Application.Helper;
 using labor.Application.Repositories;
 using labor.Application.ViewModel;
 using labor.Domain.ModelsE;
 using labor.Domain.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using MediatR;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace labor.Application.Command.Models.Changes
 {
-    public class ModelChangeCommand : IModelChange
+    public class ModelEditCommand : IRequestHandler<ModelEditViewModel, ResultE>
     {
         private readonly IMapper _mapper;
         private readonly NotificationContext _notificationContext;
         private readonly IModelWriteOnlyRepository modelWriteOnlyRepository;
 
-        public ModelChangeCommand(IMapper mapper, NotificationContext notificationContext, IModelWriteOnlyRepository modelWriteOnlyRepository)
+        public ModelEditCommand(IMapper mapper, NotificationContext notificationContext, IModelWriteOnlyRepository modelWriteOnlyRepository)
         {
             _mapper = mapper;
             _notificationContext = notificationContext;
             this.modelWriteOnlyRepository = modelWriteOnlyRepository;
         }
 
-        public async Task<ModelResult> Handler(ModelViewModel modelViewModel, NotificationContext notificationContext)
+        public async Task<ResultE> Handle(ModelEditViewModel request, CancellationToken cancellationToken)
         {
-            var model = _mapper.Map<ModelViewModel, Model>(modelViewModel);
+            var model = _mapper.Map<ModelEditViewModel, Model>(request);
 
             if (model.ValidationResult.IsValid)
             {
                 _notificationContext.AddNotifications(model.ValidationResult);
-                return new ModelResult(-1, model.Name, "NOK");
+                return new ResultE(new System.Guid(), model.Name, "NOT EDITED MODEL");
 
             }
 
             var IdResult = await modelWriteOnlyRepository.Update(new Model(model.Id, model.Name, model.BrandId));
 
-            return new ModelResult(IdResult, model.Name, IdResult != -1 ? "OK" : "NOK");
+            return new ResultE(new System.Guid() , model.Name, IdResult != -1 ? "EDITED WITH SUCESS" : "NOT EDITED MODEL");
         }
+
+        
     }
 }
