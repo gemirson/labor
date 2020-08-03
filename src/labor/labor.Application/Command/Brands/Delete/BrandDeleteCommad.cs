@@ -1,11 +1,8 @@
 ﻿using labor.Application.Helper;
 using labor.Application.Repositories;
 using labor.Application.ViewModel;
-using labor.Domain.BrandsE;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
