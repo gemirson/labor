@@ -3,20 +3,23 @@ using labor.Application.Command.Brands;
 using labor.Application.Command.Models;
 using labor.Application.Command.Vehicles.Register;
 using labor.Application.Command.Vehicles.Result;
+using labor.Application.Helper;
 using labor.Application.Repositories;
 using labor.Application.ViewModel;
 using labor.Domain.BrandsE;
 using labor.Domain.ModelsE;
 using labor.Domain.Notifications;
 using labor.Domain.VehiclesE;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace labor.Application.Command.Vehicles
 {
-    public class VehiclesRegisterCommand : IVehicles
+    public class VehiclesRegisterCommand : IRequestHandler<VehicleRegisterViewModel, ResultE>
     {
         private readonly IMapper _mapper;
         private readonly NotificationContext _notificationContext;
@@ -29,23 +32,22 @@ namespace labor.Application.Command.Vehicles
             this.vehicleWriteOnlyRepository = vehicleWriteOnlyRepository;
         }
 
-        public async Task<VehiclesResult> Handler(VehicleViewModel vehicleViewModel, NotificationContext notificationContext)
+        public async Task<ResultE> Handle(VehicleRegisterViewModel request, CancellationToken cancellationToken)
         {
-            var vehicle = _mapper.Map<VehicleViewModel, Vehicle>(vehicleViewModel);
+            var vehicle = _mapper.Map<VehicleRegisterViewModel, Vehicle>(request);
 
             if (vehicle.ValidationResult.IsValid)
             {
                 _notificationContext.AddNotifications(vehicle.ValidationResult);
-                return new VehiclesResult(-1, vehicle.Name, "NOK");
+                return new ResultE(new Guid(), vehicle.Name, "VEHICLE NOT CREATED");
 
             }
 
-            var IdResult = await vehicleWriteOnlyRepository.Add(new Vehicle( vehicle.Name,vehicle.Id, vehicle.BrandId, vehicle.ModelsId,vehicle.Value,vehicle.YearModel,vehicle.Fuel));
+            var IdResult = await vehicleWriteOnlyRepository.Add(new Vehicle(vehicle.Name, vehicle.Id, vehicle.BrandId, vehicle.ModelsId, vehicle.Value, vehicle.YearModel, vehicle.Fuel));
 
-            return new VehiclesResult(IdResult, vehicle.Name, IdResult != -1 ? "OK" : "NOK");
+            return new ResultE(new Guid(), vehicle.Name, IdResult != -1 ? "VEHICLE CREATED WITH SUCESS" : "VEHICLE NOT CREATED");
         }
-
-        
+                       
 
     }
 }
