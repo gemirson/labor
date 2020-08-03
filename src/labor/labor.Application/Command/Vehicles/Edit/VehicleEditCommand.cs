@@ -1,43 +1,44 @@
 ﻿using AutoMapper;
-using labor.Application.Command.Vehicles.Result;
+using labor.Application.Helper;
 using labor.Application.Repositories;
 using labor.Application.ViewModel;
 using labor.Domain.Notifications;
 using labor.Domain.VehiclesE;
+using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace labor.Application.Command.Vehicles.Change
+namespace labor.Application.Command.Vehicles.Edit
 {
-    public class VehicleChangeCommand : IVehicleChange
+    public class VehicleEditCommand : IRequestHandler<VehicleEditViewModel, ResultE>
     {
         private readonly IMapper _mapper;
         private readonly NotificationContext _notificationContext;
         private readonly IVehiclesWriteOnlyRepository vehicleWriteOnlyRepository;
 
-        public VehicleChangeCommand(IMapper mapper, NotificationContext notificationContext, IVehiclesWriteOnlyRepository vehicleWriteOnlyRepository)
+        public VehicleEditCommand(IMapper mapper, NotificationContext notificationContext, IVehiclesWriteOnlyRepository vehicleWriteOnlyRepository)
         {
             _mapper = mapper;
             _notificationContext = notificationContext;
             this.vehicleWriteOnlyRepository = vehicleWriteOnlyRepository;
         }
 
-        public async Task<VehiclesResult> Handler(VehicleViewModel vehicleViewModel, NotificationContext notificationContext)
+        public async Task<ResultE> Handle(VehicleEditViewModel request, CancellationToken cancellationToken)
         {
-            var vehicle = _mapper.Map<VehicleViewModel, Vehicle>(vehicleViewModel);
+            var vehicle = _mapper.Map<VehicleEditViewModel, Vehicle>(request);
 
             if (vehicle.ValidationResult.IsValid)
             {
                 _notificationContext.AddNotifications(vehicle.ValidationResult);
-                return new VehiclesResult(-1, vehicle.Name, "NOK");
+                return new ResultE(new Guid(), vehicle.Name, "VEHICLE NOT EDITED");
 
             }
 
             var IdResult = await vehicleWriteOnlyRepository.Update(new Vehicle(vehicle.Name, vehicle.Id, vehicle.BrandId, vehicle.ModelsId, vehicle.Value, vehicle.YearModel, vehicle.Fuel));
 
-            return new VehiclesResult(IdResult, vehicle.Name, IdResult != -1 ? "OK" : "NOK");
+            return new ResultE(new Guid(), vehicle.Name, IdResult != -1 ? "VEHICLE EDITED WITH SUCESS" : "VEHICLE NOT EDITED");
         }
+              
     }
 }
