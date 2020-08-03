@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using labor.Application.Command.Models.Result;
 using labor.Application.Helper;
 using labor.Application.Repositories;
 using labor.Application.ViewModel;

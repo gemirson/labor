@@ -24,6 +24,6 @@ namespace labor.Application.Command.Models.Delete
         }
 
          
-        }
+        
     }
 }

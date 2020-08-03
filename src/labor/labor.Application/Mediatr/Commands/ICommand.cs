@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Anima.Application.Mediatr.Commands
+namespace labor.Application.Mediatr.Commands
 {
     public interface ICommand<out T> : IRequest<T>
     {

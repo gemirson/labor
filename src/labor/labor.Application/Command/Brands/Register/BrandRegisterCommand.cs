@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
-using labor.Application.Command.Brands.Result;
+using labor.Application.Helper;
 using labor.Application.Repositories;
 using labor.Application.ViewModel;
 using labor.Domain.BrandsE;
 using labor.Domain.Notifications;
-using labor.Application.Helper;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System;
 
 namespace labor.Application.Command.Brands.Register
 {

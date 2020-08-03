@@ -35,7 +35,7 @@ namespace labor.Application.Command.Vehicles.Edit
 
             }
 
-            var IdResult = await vehicleWriteOnlyRepository.Update(new Vehicle(vehicle.Name, vehicle.Id, vehicle.BrandId, vehicle.ModelsId, vehicle.Value, vehicle.YearModel, vehicle.Fuel));
+            var IdResult = await vehicleWriteOnlyRepository.Edit(new Vehicle(vehicle.Name, vehicle.Id, vehicle.BrandId, vehicle.ModelsId, vehicle.Value, vehicle.YearModel, vehicle.Fuel));
 
             return new ResultE(new Guid(), vehicle.Name, IdResult != -1 ? "VEHICLE EDITED WITH SUCESS" : "VEHICLE NOT EDITED");
         }

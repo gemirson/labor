@@ -71,7 +71,7 @@ namespace labor.Web.Controllers
         [ProducesResponseType(typeof(BrandResult), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> RegisterAsync([FromBody] BrandRequest brandRequest)
         {
-            var result = await _brandRegister.Handler(new BrandViewModel { Name = brandRequest.Name }, _notificationContext);
+            var result = await _brandRegister.Handler(new BrandEditViewModel { Name = brandRequest.Name }, _notificationContext);
 
             if (result == null) return UnprocessableEntity();
 
@@ -89,7 +89,7 @@ namespace labor.Web.Controllers
         [ProducesResponseType(typeof(BrandResult), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> BrandChangesAsync(int Id ,[FromBody] BrandRequest brandRequest)
         {
-            return Ok(await _brandChanges.Handler(new BrandViewModel { Id = Id, Name = brandRequest.Name }, _notificationContext));
+            return Ok(await _brandChanges.Handler(new BrandEditViewModel { Id = Id, Name = brandRequest.Name }, _notificationContext));
         }
 
         [HttpDelete("{Id}")]

@@ -34,7 +34,7 @@ namespace labor.Application.Command.Models.Changes
 
             }
 
-            var IdResult = await modelWriteOnlyRepository.Update(new Model(model.Id, model.Name, model.BrandId));
+            var IdResult = await modelWriteOnlyRepository.Edit(new Model(model.Id, model.Name, model.BrandId));
 
             return new ResultE(new System.Guid() , model.Name, IdResult != -1 ? "EDITED WITH SUCESS" : "NOT EDITED MODEL");
         }

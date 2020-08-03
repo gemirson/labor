@@ -1,5 +1,4 @@
-﻿using labor.Application.Command.Brands.Result;
-using labor.Domain.BrandsE;
+﻿using labor.Domain.BrandsE;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

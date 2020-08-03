@@ -1,19 +1,11 @@
 ﻿using AutoMapper;
-using labor.Application.Command.Brands;
-using labor.Application.Command.Models;
-using labor.Application.Command.Vehicles.Register;
-using labor.Application.Command.Vehicles.Result;
 using labor.Application.Helper;
 using labor.Application.Repositories;
 using labor.Application.ViewModel;
-using labor.Domain.BrandsE;
-using labor.Domain.ModelsE;
 using labor.Domain.Notifications;
 using labor.Domain.VehiclesE;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -8,7 +8,7 @@ namespace labor.Application.Repositories
     public interface IBrandsWriteOnlyRepository
     {
         Task<int> Add(Brand models);
-        Task<int> Update(Brand models);
+        Task<int> Edit(Brand models);
         Task<int> Delete(int IdBrand);
     }
 }

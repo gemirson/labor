@@ -35,7 +35,7 @@ namespace labor.Application.Command.Brands.Changes
 
             }
 
-            var IdResult = await brandsWriteOnlyRepository.Update(new Brand(brand.Id, brand.Name));
+            var IdResult = await brandsWriteOnlyRepository.Edit(new Brand(brand.Id, brand.Name));
 
             return new ResultE(new System.Guid(), brand.Name, IdResult != -1 ? "EDITED" : "NOT EDITED");
         }
